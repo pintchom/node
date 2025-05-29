@@ -32,8 +32,8 @@ RUN curl -o /home/$USERNAME/hl-visor $HL_VISOR_URL \
     && gpg --verify /home/$USERNAME/hl-visor.asc /home/$USERNAME/hl-visor \
     && chmod +x /home/$USERNAME/hl-visor
 
-# Expose gossip ports
-EXPOSE 4000-4010
+# Expose port 4001 (Railway limitation - only one port)
+EXPOSE 4001
 
-# Run a non-validating node
-ENTRYPOINT ["/home/hluser/hl-visor", "run-non-validator", "--replica-cmds-style", "recent-actions"]
+# Run non-validator with only trade data
+ENTRYPOINT ["/home/hluser/hl-visor", "run-non-validator", "--write-trades", "--replica-cmds-style", "recent-actions"]
